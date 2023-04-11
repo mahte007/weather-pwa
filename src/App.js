@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { fetchWeather } from "./api/fetchWeather";
+import { fetchWeatherByName, fetchWeatherByCoords } from "./api/fetchWeather";
 import './styles.css'
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
 
   const search = async (e) => {
     if(e.key === 'Enter'){
-      const data = await fetchWeather(query);
+      const data = await fetchWeatherByName(query);
       
       setWeather(data);
       setQuery('');
@@ -19,6 +19,20 @@ const App = () => {
   const handleChange = (e) => {
     setQuery(e.target.value);
   }
+
+  const getLocation = () => {
+      navigator.geolocation.getCurrentPosition(async position => {
+  
+        const data = await fetchWeatherByCoords({
+          lon: position.coords.longitude,
+          lat: position.coords.latitude
+        });
+  
+        setWeather(data);
+      })
+
+  }
+
 
   return (
     <div className="main-container">
@@ -30,6 +44,15 @@ const App = () => {
           onChange={handleChange}
           onKeyDown={search}
       />
+
+      <input 
+          type="button"
+          className="search"
+          value="Use my location!"
+          onClick={getLocation}
+      />
+      
+      
 
       {weather.main && (
         <div className="city">
@@ -47,6 +70,7 @@ const App = () => {
           </div>
         </div>
       )}
+
     </div>
     
   );

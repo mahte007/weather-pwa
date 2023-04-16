@@ -47,6 +47,7 @@ const App = () => {
 
   return (
     <div className="main-container">
+    <div className="search-container">
       <input 
           type="text"
           className="search"
@@ -56,12 +57,11 @@ const App = () => {
           onKeyDown={search}
       />
 
-      <input 
-          type="button"
-          className="search"
-          value="Use my location!"
+      <i className="fa fa-map-marker location" aria-hidden="true"
           onClick={getLocation}
       />
+     
+    </div>
       
       
       <div className="weather-container">

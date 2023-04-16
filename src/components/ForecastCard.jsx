@@ -13,9 +13,13 @@ const ForecastCard = (props) => {
     return (
 
         <div className="forecast-card" key={props.forecastElement.dt}>
-            {formattedTime}
-            <img className="" src={'https://openweathermap.org/img/wn/' + props.forecastElement.weather[0].icon + '@2x.png'} alt={props.forecastElement.weather[0].description} />
-            {Math.round(props.forecastElement.main.temp)}
+            <h3>{formattedTime}</h3>
+            <img className="forecast-icon" src={'https://openweathermap.org/img/wn/' + props.forecastElement.weather[0].icon + '@2x.png'} alt={props.forecastElement.weather[0].description} />
+            <h3 className="forecast-temp">
+                {Math.round(props.forecastElement.main.temp)} 
+                <sup>&deg;C</sup>
+            </h3>
+            
         </div>
     )
 }
